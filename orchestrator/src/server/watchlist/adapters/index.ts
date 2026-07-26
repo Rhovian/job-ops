@@ -1,13 +1,19 @@
 import type { WatchedSourceType } from "@shared/types";
+import { ashbyWatchlistAdapter } from "./ashby";
 import { bamboohrWatchlistAdapter } from "./bamboohr";
 import { greenhouseWatchlistAdapter } from "./greenhouse";
+import { leverWatchlistAdapter } from "./lever";
 import type { WatchlistCatalogSourceAdapter } from "./types";
+import { workableWatchlistAdapter } from "./workable";
 import { workdayWatchlistAdapter } from "./workday";
 
 const adapters = [
   workdayWatchlistAdapter,
   bamboohrWatchlistAdapter,
   greenhouseWatchlistAdapter,
+  leverWatchlistAdapter,
+  ashbyWatchlistAdapter,
+  workableWatchlistAdapter,
 ] as const;
 
 const adaptersByType = new Map<

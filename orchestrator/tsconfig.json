@@ -22,7 +22,13 @@
       "@career-boards/workday": ["../career-boards/workday/src/index.ts"],
       "@career-boards/workday/*": ["../career-boards/workday/src/*"],
       "@career-boards/greenhouse": ["../career-boards/greenhouse/src/index.ts"],
-      "@career-boards/greenhouse/*": ["../career-boards/greenhouse/src/*"]
+      "@career-boards/greenhouse/*": ["../career-boards/greenhouse/src/*"],
+      "@career-boards/lever": ["../career-boards/lever/src/index.ts"],
+      "@career-boards/lever/*": ["../career-boards/lever/src/*"],
+      "@career-boards/ashby": ["../career-boards/ashby/src/index.ts"],
+      "@career-boards/ashby/*": ["../career-boards/ashby/src/*"],
+      "@career-boards/workable": ["../career-boards/workable/src/index.ts"],
+      "@career-boards/workable/*": ["../career-boards/workable/src/*"]
     }
   },
   "include": ["src/**/*", "scripts/**/*", "../career-boards/**/*.ts"],
