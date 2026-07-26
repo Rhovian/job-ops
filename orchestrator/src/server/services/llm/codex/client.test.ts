@@ -176,6 +176,78 @@ describe("CodexClient", () => {
     expect(threadReadCalls).toBe(0);
   });
 
+  it("omits outputSchema when the schema is not strict enough for Codex structured output", async () => {
+    let turnStartParams: Record<string, unknown> | null = null;
+
+    mockSpawn((request, helpers) => {
+      if (request.method === "initialize") {
+        helpers.respond({
+          userAgent: "test",
+          codexHome: "/tmp/codex",
+          platformFamily: "unix",
+          platformOs: "linux",
+        });
+        return;
+      }
+      if (request.method === "thread/start") {
+        helpers.respond({ thread: { id: "thread-1" } });
+        return;
+      }
+      if (request.method === "turn/start") {
+        turnStartParams = request.params as Record<string, unknown>;
+        helpers.respond({ turn: { id: "turn-1" } });
+        helpers.notify("item/completed", {
+          threadId: "thread-1",
+          turnId: "turn-1",
+          item: {
+            type: "agentMessage",
+            id: "msg-1",
+            phase: "final_answer",
+            text: '{"basics":{}}',
+          },
+        });
+        helpers.notify("turn/completed", {
+          threadId: "thread-1",
+          turn: {
+            id: "turn-1",
+            status: "completed",
+            error: null,
+            items: [],
+            startedAt: null,
+            completedAt: null,
+            durationMs: null,
+          },
+        });
+        return;
+      }
+
+      helpers.respond({});
+    });
+
+    const client = new CodexClient();
+    await client.callJson({
+      model: "gpt-5.5",
+      messages: [{ role: "user", content: "Import this resume." }],
+      jsonSchema: {
+        name: "loose_resume_import",
+        schema: {
+          type: "object",
+          properties: { basics: { type: "object" } },
+          required: ["basics"],
+          additionalProperties: true,
+        },
+      },
+    } as LlmRequestOptions<unknown>);
+
+    expect(turnStartParams).not.toHaveProperty("outputSchema");
+    const capturedParams = turnStartParams as unknown as Record<
+      string,
+      unknown
+    >;
+    const input = capturedParams.input as Array<Record<string, unknown>>;
+    expect(input[0]?.text).toContain('"additionalProperties": true');
+  });
+
   it("reports missing auth as an invalid credential state", async () => {
     mockSpawn((request, helpers) => {
       if (request.method === "initialize") {

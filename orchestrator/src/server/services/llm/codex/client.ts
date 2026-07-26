@@ -249,6 +249,40 @@ function pickBestAgentMessageText(
   return finalAnswer ?? fallback;
 }
 
+function schemaSupportsStrictOutput(value: unknown): boolean {
+  if (!value || typeof value !== "object") return true;
+  const record = value as Record<string, unknown>;
+  const type = record.type;
+  const typeIncludesObject =
+    type === "object" ||
+    (Array.isArray(type) && type.some((entry) => entry === "object"));
+
+  if (typeIncludesObject && record.additionalProperties !== false) {
+    return false;
+  }
+
+  const properties = record.properties;
+  if (properties && typeof properties === "object") {
+    for (const property of Object.values(properties)) {
+      if (!schemaSupportsStrictOutput(property)) return false;
+    }
+  }
+
+  const items = record.items;
+  if (items && !schemaSupportsStrictOutput(items)) return false;
+
+  for (const key of ["anyOf", "allOf", "oneOf"] as const) {
+    const variants = record[key];
+    if (Array.isArray(variants)) {
+      for (const variant of variants) {
+        if (!schemaSupportsStrictOutput(variant)) return false;
+      }
+    }
+  }
+
+  return true;
+}
+
 class CodexAppServerSession {
   private readonly proc: ChildProcessWithoutNullStreams;
   private readonly stdoutReader: Interface;
@@ -862,31 +896,31 @@ export class CodexClient {
           throw new Error("Codex thread/start did not return a thread id.");
         }
 
-        const turnStart = (await session.request(
-          "turn/start",
-          {
-            threadId,
-            model: options.model.trim() || null,
-            input: [
-              {
-                type: "text",
-                text: formatPrompt({
-                  messages: options.messages,
-                  jsonSchema: options.jsonSchema,
-                }),
-                text_elements: [],
-              },
-            ],
-            outputSchema: options.jsonSchema.schema,
-          },
-          {
-            signal: options.signal,
-            timeoutMs: getPositiveIntEnv(
-              "CODEX_APP_SERVER_REQUEST_TIMEOUT_MS",
-              DEFAULT_REQUEST_TIMEOUT_MS,
-            ),
-          },
-        )) as {
+        const turnParams: Record<string, unknown> = {
+          threadId,
+          model: options.model.trim() || null,
+          input: [
+            {
+              type: "text",
+              text: formatPrompt({
+                messages: options.messages,
+                jsonSchema: options.jsonSchema,
+              }),
+              text_elements: [],
+            },
+          ],
+        };
+        if (schemaSupportsStrictOutput(options.jsonSchema.schema)) {
+          turnParams.outputSchema = options.jsonSchema.schema;
+        }
+
+        const turnStart = (await session.request("turn/start", turnParams, {
+          signal: options.signal,
+          timeoutMs: getPositiveIntEnv(
+            "CODEX_APP_SERVER_REQUEST_TIMEOUT_MS",
+            DEFAULT_REQUEST_TIMEOUT_MS,
+          ),
+        })) as {
           turn?: { id?: string };
         };
 
