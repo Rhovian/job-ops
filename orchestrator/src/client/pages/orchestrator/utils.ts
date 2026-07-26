@@ -298,10 +298,7 @@ export const getEnabledSources = (
   const hasApifyToken = Boolean(settings.apifyTokenHint);
 
   for (const source of orderedSources) {
-    if (source === "gradcracker") {
-      enabled.push(source);
-      continue;
-    }
+    // Only these sources require credentials; gate them on auth being present.
     if (source === "ukvisajobs") {
       if (hasUkVisaJobsAuth) enabled.push(source);
       continue;
@@ -314,37 +311,8 @@ export const getEnabledSources = (
       if (hasApifyToken) enabled.push(source);
       continue;
     }
-    if (source === "naukri") {
-      enabled.push(source);
-      continue;
-    }
-    if (source === "hiringcafe") {
-      enabled.push(source);
-      continue;
-    }
-    if (source === "startupjobs") {
-      enabled.push(source);
-      continue;
-    }
-    if (source === "workingnomads") {
-      enabled.push(source);
-      continue;
-    }
-    if (source === "golangjobs") {
-      enabled.push(source);
-      continue;
-    }
-    if (source === "jobindex") {
-      enabled.push(source);
-      continue;
-    }
-    if (
-      source === "indeed" ||
-      source === "linkedin" ||
-      source === "glassdoor"
-    ) {
-      enabled.push(source);
-    }
+    // Everything else (incl. ATS boards, Wellfound) needs no credentials.
+    enabled.push(source);
   }
 
   return enabled.length > 0 ? enabled : [...DEFAULT_PIPELINE_SOURCES];

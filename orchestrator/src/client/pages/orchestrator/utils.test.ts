@@ -51,6 +51,19 @@ describe("orchestrator utils", () => {
     expect(getEnabledSources(createAppSettings())).toContain("naukri");
   });
 
+  it("enables ATS board sources and wellfound without credentials", () => {
+    const enabled = getEnabledSources(createAppSettings());
+    expect(enabled).toEqual(
+      expect.arrayContaining([
+        "greenhouse",
+        "lever",
+        "ashby",
+        "workable",
+        "wellfound",
+      ]),
+    );
+  });
+
   it("counts processing jobs in ready and discovered tabs", () => {
     const jobs = [
       createJob({ id: "ready", status: "ready", closedAt: null }),
