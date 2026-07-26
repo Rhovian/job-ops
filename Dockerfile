@@ -81,6 +81,9 @@ COPY shared/package*.json ./shared/
 COPY orchestrator/package*.json ./orchestrator/
 COPY career-boards/bamboohr/package*.json ./career-boards/bamboohr/
 COPY career-boards/greenhouse/package*.json ./career-boards/greenhouse/
+COPY career-boards/lever/package*.json ./career-boards/lever/
+COPY career-boards/ashby/package*.json ./career-boards/ashby/
+COPY career-boards/workable/package*.json ./career-boards/workable/
 COPY career-boards/workday/package*.json ./career-boards/workday/
 COPY extractors/adzuna/package*.json ./extractors/adzuna/
 COPY extractors/hiringcafe/package*.json ./extractors/hiringcafe/
@@ -94,6 +97,8 @@ COPY extractors/ukvisajobs/package*.json ./extractors/ukvisajobs/
 COPY extractors/seek/package*.json ./extractors/seek/
 COPY extractors/fiveamsat/package*.json ./extractors/fiveamsat/
 COPY extractors/wazzuf/package*.json ./extractors/wazzuf/
+COPY extractors/wellfound/package*.json ./extractors/wellfound/
+COPY extractors/atsboards/package*.json ./extractors/atsboards/
 COPY extractors/browser-utils/package*.json ./extractors/browser-utils/
 
 # Install build-time Node dependencies on the native builder platform. The
@@ -109,6 +114,9 @@ COPY docs-site ./docs-site
 COPY orchestrator ./orchestrator
 COPY career-boards/bamboohr ./career-boards/bamboohr
 COPY career-boards/greenhouse ./career-boards/greenhouse
+COPY career-boards/lever ./career-boards/lever
+COPY career-boards/ashby ./career-boards/ashby
+COPY career-boards/workable ./career-boards/workable
 COPY career-boards/workday ./career-boards/workday
 COPY visa-sponsor-providers ./visa-sponsor-providers
 COPY extractors/adzuna ./extractors/adzuna
@@ -124,6 +132,8 @@ COPY extractors/ukvisajobs ./extractors/ukvisajobs
 COPY extractors/seek ./extractors/seek
 COPY extractors/fiveamsat ./extractors/fiveamsat
 COPY extractors/wazzuf ./extractors/wazzuf
+COPY extractors/wellfound ./extractors/wellfound
+COPY extractors/atsboards ./extractors/atsboards
 COPY extractors/browser-utils ./extractors/browser-utils
 
 # ============================================================================
@@ -158,6 +168,9 @@ COPY shared/package*.json ./shared/
 COPY orchestrator/package*.json ./orchestrator/
 COPY career-boards/bamboohr/package*.json ./career-boards/bamboohr/
 COPY career-boards/greenhouse/package*.json ./career-boards/greenhouse/
+COPY career-boards/lever/package*.json ./career-boards/lever/
+COPY career-boards/ashby/package*.json ./career-boards/ashby/
+COPY career-boards/workable/package*.json ./career-boards/workable/
 COPY career-boards/workday/package*.json ./career-boards/workday/
 COPY extractors/adzuna/package*.json ./extractors/adzuna/
 COPY extractors/hiringcafe/package*.json ./extractors/hiringcafe/
@@ -171,6 +184,8 @@ COPY extractors/ukvisajobs/package*.json ./extractors/ukvisajobs/
 COPY extractors/seek/package*.json ./extractors/seek/
 COPY extractors/fiveamsat/package*.json ./extractors/fiveamsat/
 COPY extractors/wazzuf/package*.json ./extractors/wazzuf/
+COPY extractors/wellfound/package*.json ./extractors/wellfound/
+COPY extractors/atsboards/package*.json ./extractors/atsboards/
 COPY extractors/browser-utils/package*.json ./extractors/browser-utils/
 
 # Install production Node dependencies only.
@@ -251,6 +266,9 @@ COPY shared ./shared
 COPY orchestrator ./orchestrator
 COPY career-boards/bamboohr ./career-boards/bamboohr
 COPY career-boards/greenhouse ./career-boards/greenhouse
+COPY career-boards/lever ./career-boards/lever
+COPY career-boards/ashby ./career-boards/ashby
+COPY career-boards/workable ./career-boards/workable
 COPY career-boards/workday ./career-boards/workday
 COPY visa-sponsor-providers ./visa-sponsor-providers
 COPY extractors/adzuna ./extractors/adzuna
@@ -266,6 +284,8 @@ COPY extractors/ukvisajobs ./extractors/ukvisajobs
 COPY extractors/seek ./extractors/seek
 COPY extractors/fiveamsat ./extractors/fiveamsat
 COPY extractors/wazzuf ./extractors/wazzuf
+COPY extractors/wellfound ./extractors/wellfound
+COPY extractors/atsboards ./extractors/atsboards
 COPY extractors/browser-utils ./extractors/browser-utils
 
 # Create runtime directories.

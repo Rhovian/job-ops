@@ -51,6 +51,15 @@ services:
         - path: ./career-boards/workday/src
           target: /app/career-boards/workday/src
           action: sync+restart
+        - path: ./career-boards/lever/src
+          target: /app/career-boards/lever/src
+          action: sync+restart
+        - path: ./career-boards/ashby/src
+          target: /app/career-boards/ashby/src
+          action: sync+restart
+        - path: ./career-boards/workable/src
+          target: /app/career-boards/workable/src
+          action: sync+restart
         # Sync extractor changes
         - path: ./extractors/gradcracker/src
           target: /app/extractors/gradcracker/src
@@ -84,6 +93,12 @@ services:
           action: sync+restart
         - path: ./extractors/wazzuf
           target: /app/extractors/wazzuf
+          action: sync+restart
+        - path: ./extractors/wellfound
+          target: /app/extractors/wellfound
+          action: sync+restart
+        - path: ./extractors/atsboards
+          target: /app/extractors/atsboards
           action: sync+restart
     restart: unless-stopped
     healthcheck:
