@@ -1,0 +1,12 @@
+{
+  "name": "@career-boards/workable",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./workable-url": "./src/workable-url.ts",
+    "./get-job-details": "./src/get-job-details.ts",
+    "./get-jobs-from-board": "./src/get-jobs-from-board.ts"
+  }
+}
