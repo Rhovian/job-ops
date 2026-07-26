@@ -148,6 +148,34 @@ const HEALTH_PROBE_CONFIG_BY_SOURCE: Record<
       wellfoundMaxJobsPerTerm: "1",
     },
   },
+  greenhouse: {
+    searchTerm: DEFAULT_HEALTH_SEARCH_TERM,
+    selectedCountry: DEFAULT_HEALTH_SELECTED_COUNTRY,
+    settings: {
+      atsboardsMaxCompanies: "1",
+    },
+  },
+  lever: {
+    searchTerm: DEFAULT_HEALTH_SEARCH_TERM,
+    selectedCountry: DEFAULT_HEALTH_SELECTED_COUNTRY,
+    settings: {
+      atsboardsMaxCompanies: "1",
+    },
+  },
+  ashby: {
+    searchTerm: DEFAULT_HEALTH_SEARCH_TERM,
+    selectedCountry: DEFAULT_HEALTH_SELECTED_COUNTRY,
+    settings: {
+      atsboardsMaxCompanies: "1",
+    },
+  },
+  workable: {
+    searchTerm: DEFAULT_HEALTH_SEARCH_TERM,
+    selectedCountry: DEFAULT_HEALTH_SELECTED_COUNTRY,
+    settings: {
+      atsboardsMaxCompanies: "1",
+    },
+  },
   manual: {
     searchTerm: DEFAULT_HEALTH_SEARCH_TERM,
     selectedCountry: DEFAULT_HEALTH_SELECTED_COUNTRY,

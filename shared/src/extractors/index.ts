@@ -17,6 +17,10 @@ export const EXTRACTOR_SOURCE_IDS = [
   "fiveamsat",
   "wazzuf",
   "wellfound",
+  "greenhouse",
+  "lever",
+  "ashby",
+  "workable",
   "manual",
 ] as const;
 
@@ -87,6 +91,18 @@ export const EXTRACTOR_SOURCE_METADATA: Record<
   fiveamsat: { label: "Khamsat", order: 109, category: "pipeline" },
   wazzuf: { label: "WUZZUF", order: 110, category: "pipeline" },
   wellfound: { label: "Wellfound", order: 112, category: "pipeline" },
+  greenhouse: {
+    label: "Greenhouse (all boards)",
+    order: 113,
+    category: "pipeline",
+  },
+  lever: { label: "Lever (all boards)", order: 114, category: "pipeline" },
+  ashby: { label: "Ashby (all boards)", order: 115, category: "pipeline" },
+  workable: {
+    label: "Workable (all boards)",
+    order: 116,
+    category: "pipeline",
+  },
   manual: { label: "Manual", order: 120, category: "manual" },
 };
 

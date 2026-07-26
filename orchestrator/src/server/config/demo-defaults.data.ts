@@ -265,6 +265,10 @@ export const DEMO_SOURCE_BASE_URLS: Record<JobSource, string> = {
   fiveamsat: "https://khamsat.com",
   wazzuf: "https://wuzzuf.net",
   wellfound: "https://wellfound.com",
+  greenhouse: "https://job-boards.greenhouse.io",
+  lever: "https://jobs.lever.co",
+  ashby: "https://jobs.ashbyhq.com",
+  workable: "https://apply.workable.com",
   manual: "https://example.com",
 };
 

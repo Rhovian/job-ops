@@ -503,6 +503,45 @@ export const settingsRegistry = {
     parse: parseIntOrNull,
     serialize: serializeNullableNumber,
   },
+  atsboardsMaxCompanies: {
+    kind: "typed" as const,
+    schema: z.number().int().min(1).max(1000),
+    default: (): number =>
+      parseInt(
+        typeof process !== "undefined"
+          ? process.env.ATSBOARDS_MAX_COMPANIES || "25"
+          : "25",
+        10,
+      ),
+    parse: parseIntOrNull,
+    serialize: serializeNullableNumber,
+  },
+  atsboardsMaxJobsPerCompany: {
+    kind: "typed" as const,
+    schema: z.number().int().min(1).max(1000),
+    default: (): number =>
+      parseInt(
+        typeof process !== "undefined"
+          ? process.env.ATSBOARDS_MAX_JOBS_PER_COMPANY || "25"
+          : "25",
+        10,
+      ),
+    parse: parseIntOrNull,
+    serialize: serializeNullableNumber,
+  },
+  atsboardsConcurrency: {
+    kind: "typed" as const,
+    schema: z.number().int().min(1).max(100),
+    default: (): number =>
+      parseInt(
+        typeof process !== "undefined"
+          ? process.env.ATSBOARDS_CONCURRENCY || "4"
+          : "4",
+        10,
+      ),
+    parse: parseIntOrNull,
+    serialize: serializeNullableNumber,
+  },
   jobindexMaxJobsPerTerm: {
     kind: "typed" as const,
     schema: z.number().int().min(1).max(1000),

@@ -1,0 +1,21 @@
+{
+  "name": "atsboards-extractor",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Sweeps validated Greenhouse/Lever/Ashby/Workable company boards as pipeline sources",
+  "dependencies": {
+    "@career-boards/ashby": "^0.0.1",
+    "@career-boards/greenhouse": "^0.0.1",
+    "@career-boards/lever": "^0.0.1",
+    "@career-boards/workable": "^0.0.1",
+    "job-ops-shared": "^1.0.0",
+    "tsx": "^4.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "~5.9.0"
+  },
+  "scripts": {
+    "check:types": "tsc --noEmit"
+  }
+}

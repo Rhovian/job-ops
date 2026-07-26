@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "strict": true,
+    "noUnusedLocals": false,
+    "lib": ["ES2022", "DOM"],
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["../../shared/src/*"],
+      "job-ops-shared/*": ["../../shared/src/*"],
+      "@career-boards/greenhouse": [
+        "../../career-boards/greenhouse/src/index.ts"
+      ],
+      "@career-boards/lever": ["../../career-boards/lever/src/index.ts"],
+      "@career-boards/ashby": ["../../career-boards/ashby/src/index.ts"],
+      "@career-boards/workable": ["../../career-boards/workable/src/index.ts"]
+    }
+  },
+  "include": ["./src/**/*", "./manifest.ts"]
+}

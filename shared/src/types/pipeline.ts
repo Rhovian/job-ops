@@ -28,6 +28,7 @@ export interface ExtractorLimits {
   jobindexMaxJobsPerTerm: number;
   seekMaxJobsPerTerm: number;
   naukriMaxJobsPerTerm: number;
+  atsboardsMaxJobsPerSource: number;
 }
 
 export function deriveExtractorLimits(args: {
@@ -50,10 +51,12 @@ export function deriveExtractorLimits(args: {
     "seek",
     "naukri",
   ] as const;
+  const atsBoardSources = ["greenhouse", "lever", "ashby", "workable"];
   const weightedContributors =
     perTermSources.filter((source) => args.sources.includes(source)).length *
       termCount +
-    (args.sources.includes("ukvisajobs") ? 1 : 0);
+    (args.sources.includes("ukvisajobs") ? 1 : 0) +
+    atsBoardSources.filter((source) => args.sources.includes(source)).length;
 
   if (weightedContributors <= 0) {
     return {
@@ -66,6 +69,7 @@ export function deriveExtractorLimits(args: {
       jobindexMaxJobsPerTerm: budget,
       seekMaxJobsPerTerm: budget,
       naukriMaxJobsPerTerm: budget,
+      atsboardsMaxJobsPerSource: budget,
     };
   }
 
@@ -82,6 +86,7 @@ export function deriveExtractorLimits(args: {
     jobindexMaxJobsPerTerm: perUnit,
     seekMaxJobsPerTerm: perUnit,
     naukriMaxJobsPerTerm: perUnit,
+    atsboardsMaxJobsPerSource: perUnit,
   };
 }
 

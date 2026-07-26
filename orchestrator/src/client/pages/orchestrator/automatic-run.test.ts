@@ -163,6 +163,16 @@ describe("automatic-run utilities", () => {
     expect(limits.jobindexMaxJobsPerTerm).toBe(150);
   });
 
+  it("caps selected ATS sources by admitted jobs within the run budget", () => {
+    const limits = deriveExtractorLimits({
+      budget: 300,
+      searchTerms: ["backend"],
+      sources: ["greenhouse", "lever", "ashby", "workable"],
+    });
+
+    expect(limits.atsboardsMaxJobsPerSource * 4).toBeLessThanOrEqual(300);
+  });
+
   it("raises legacy custom budgets to the 300-job minimum", () => {
     ensureStorage().setItem(
       RUN_MEMORY_STORAGE_KEY,
