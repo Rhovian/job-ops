@@ -522,7 +522,7 @@ export function normalizeReactiveResumeV5Document(
             icon: toText(record.icon),
             network: toText(record.network),
             username: toText(record.username),
-            website: normalizeUrl(record.website, publicBaseUrl),
+            website: normalizeUrl(record.website ?? record.url, publicBaseUrl),
             options: normalizeOptions(record.options),
           };
         }),

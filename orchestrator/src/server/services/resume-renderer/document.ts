@@ -135,6 +135,20 @@ function getByPath(source: RecordLike, path: string): unknown {
   }, source);
 }
 
+function getLinkUrl(source: RecordLike): string {
+  return (
+    toText(getByPath(source, "url.href")).trim() ||
+    toText(getByPath(source, "website.url")).trim()
+  );
+}
+
+function getLinkLabel(source: RecordLike): string {
+  return (
+    toText(getByPath(source, "url.label")).trim() ||
+    toText(getByPath(source, "website.label")).trim()
+  );
+}
+
 function joinNonEmpty(
   parts: Array<string | null | undefined>,
   separator: string,
@@ -290,9 +304,8 @@ function buildContactItems(resumeJson: RecordLike): LatexResumeContactItem[] {
     items.push({ text: email, url: `mailto:${email}`, kind: "email" });
   }
 
-  const websiteUrl = toText(getByPath(basics, "website.url")).trim();
-  const websiteLabel =
-    toText(getByPath(basics, "website.label")).trim() || websiteUrl;
+  const websiteUrl = getLinkUrl(basics);
+  const websiteLabel = getLinkLabel(basics) || websiteUrl;
   if (websiteUrl) {
     items.push({
       text: websiteLabel,
@@ -306,14 +319,16 @@ function buildContactItems(resumeJson: RecordLike): LatexResumeContactItem[] {
 
 function buildProfileItems(resumeJson: RecordLike): LatexResumeProfileItem[] {
   return getVisibleSectionItems(resumeJson, "profiles").map((item) => {
-    const url = toText(getByPath(item, "website.url")).trim();
+    const url = getLinkUrl(item);
+    const label = getLinkLabel(item);
     return {
       network:
         toText(item.network).trim() ||
         toText(item.username).trim() ||
+        label ||
         url ||
         "Profile",
-      username: toText(item.username).trim() || null,
+      username: toText(item.username).trim() || label || null,
       url: url || null,
     };
   });
@@ -333,7 +348,7 @@ function buildCustomFieldItems(
       return {
         title,
         text,
-        url: toText(item.link).trim() || null,
+        url: toText(item.link).trim() || getLinkUrl(item) || null,
       };
     })
     .filter((item) => item.title || item.text);
@@ -348,7 +363,7 @@ function buildExperienceEntries(resumeJson: RecordLike): LatexResumeEntry[] {
         null,
       date: toText(item.period) || null,
       bullets: extractBullets(item.description),
-      url: toText(getByPath(item, "website.url")) || undefined,
+      url: getLinkUrl(item) || undefined,
     }),
   );
 }
@@ -362,7 +377,7 @@ function buildEducationEntries(resumeJson: RecordLike): LatexResumeEntry[] {
       joinNonEmpty([toText(item.location), toText(item.grade)], " | ") || null,
     date: toText(item.period) || null,
     bullets: extractBullets(item.description),
-    url: toText(getByPath(item, "website.url")) || undefined,
+    url: getLinkUrl(item) || undefined,
   }));
 }
 
@@ -376,7 +391,7 @@ function buildProjectEntries(resumeJson: RecordLike): LatexResumeEntry[] {
         .join(", ") || null,
     date: toText(item.period) || null,
     bullets: extractBullets(item.description),
-    url: toText(getByPath(item, "website.url")) || undefined,
+    url: getLinkUrl(item) || undefined,
   }));
 }
 
@@ -415,7 +430,7 @@ function buildAwardsEntries(resumeJson: RecordLike): LatexResumeEntry[] {
     subtitle: toText(item.awarder).trim() || null,
     date: toText(item.date) || null,
     bullets: extractBullets(item.description),
-    url: toText(getByPath(item, "website.url")) || undefined,
+    url: getLinkUrl(item) || undefined,
   }));
 }
 
@@ -426,7 +441,7 @@ function buildCertificationEntries(resumeJson: RecordLike): LatexResumeEntry[] {
       subtitle: toText(item.issuer).trim() || null,
       date: toText(item.date) || null,
       bullets: extractBullets(item.description),
-      url: toText(getByPath(item, "website.url")) || undefined,
+      url: getLinkUrl(item) || undefined,
     }),
   );
 }
@@ -438,7 +453,7 @@ function buildPublicationEntries(resumeJson: RecordLike): LatexResumeEntry[] {
       subtitle: toText(item.publisher).trim() || null,
       date: toText(item.date) || null,
       bullets: extractBullets(item.description),
-      url: toText(getByPath(item, "website.url")) || undefined,
+      url: getLinkUrl(item) || undefined,
     }),
   );
 }
@@ -449,7 +464,7 @@ function buildVolunteerEntries(resumeJson: RecordLike): LatexResumeEntry[] {
     subtitle: toText(item.location).trim() || null,
     date: toText(item.period) || null,
     bullets: extractBullets(item.description),
-    url: toText(getByPath(item, "website.url")) || undefined,
+    url: getLinkUrl(item) || undefined,
   }));
 }
 
@@ -461,7 +476,7 @@ function buildReferenceEntries(resumeJson: RecordLike): LatexResumeEntry[] {
         joinNonEmpty([toText(item.position), toText(item.phone)], " | ") ||
         null,
       bullets: extractBullets(item.description),
-      url: toText(getByPath(item, "website.url")) || undefined,
+      url: getLinkUrl(item) || undefined,
     }),
   );
 }

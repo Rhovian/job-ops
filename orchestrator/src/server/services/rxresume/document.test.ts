@@ -1,8 +1,42 @@
 import { describe, expect, it } from "vitest";
 import {
   buildDefaultReactiveResumeDocument,
+  normalizeReactiveResumeV5Document,
   prepareReactiveResumeV5DocumentForExternalUse,
 } from "./document";
+
+describe("normalizeReactiveResumeV5Document", () => {
+  it("keeps profile links from url.href input for Reactive Resume export", () => {
+    const document = buildDefaultReactiveResumeDocument();
+    document.sections = {
+      ...(document.sections as Record<string, unknown>),
+      profiles: {
+        title: "Profiles",
+        columns: 1,
+        hidden: false,
+        items: [
+          {
+            id: "profile-linkedin",
+            hidden: false,
+            network: "LinkedIn",
+            username: "janedoe",
+            url: {
+              href: "https://linkedin.com/in/janedoe",
+              label: "LinkedIn",
+            },
+          },
+        ],
+      },
+    };
+
+    const normalized = normalizeReactiveResumeV5Document(document);
+    const sections = normalized.sections as Record<string, any>;
+
+    expect(
+      sections.profiles.items.map((item: Record<string, any>) => item.website),
+    ).toEqual([{ url: "https://linkedin.com/in/janedoe", label: "LinkedIn" }]);
+  });
+});
 
 describe("prepareReactiveResumeV5DocumentForExternalUse", () => {
   it("wraps plain rich-text fields in HTML paragraphs for Reactive Resume", () => {

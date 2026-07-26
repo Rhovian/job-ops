@@ -266,6 +266,60 @@ describe("normalizeResumeJsonToLatexDocument", () => {
     expect(document.awards[0]?.title).toBe("Visible award");
   });
 
+  it("keeps profile links from newer url.href resume data", () => {
+    const document = normalizeResumeJsonToLatexDocument({
+      basics: {
+        name: "Jane Doe",
+        url: { href: "https://jane.dev", label: "Portfolio" },
+      },
+      sections: {
+        profiles: {
+          hidden: false,
+          items: [
+            {
+              id: "profile-linkedin",
+              hidden: false,
+              network: "LinkedIn",
+              username: "janedoe",
+              url: {
+                href: "https://linkedin.com/in/janedoe",
+                label: "LinkedIn",
+              },
+            },
+            {
+              id: "profile-github",
+              hidden: false,
+              network: "GitHub",
+              username: "janedoe",
+              url: {
+                href: "https://github.com/janedoe",
+                label: "GitHub",
+              },
+            },
+          ],
+        },
+      },
+    });
+
+    expect(document.contactItems).toContainEqual({
+      kind: "website",
+      text: "Portfolio",
+      url: "https://jane.dev",
+    });
+    expect(document.profileItems).toEqual([
+      {
+        network: "LinkedIn",
+        username: "janedoe",
+        url: "https://linkedin.com/in/janedoe",
+      },
+      {
+        network: "GitHub",
+        username: "janedoe",
+        url: "https://github.com/janedoe",
+      },
+    ]);
+  });
+
   it("preserves basic formatting tags and strips other HTML tags", () => {
     const document = normalizeResumeJsonToLatexDocument({
       basics: { name: "Jane Doe" },
