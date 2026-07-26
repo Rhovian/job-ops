@@ -141,6 +141,13 @@ const HEALTH_PROBE_CONFIG_BY_SOURCE: Record<
       wazzufMaxJobsPerTerm: "1",
     },
   },
+  wellfound: {
+    searchTerm: DEFAULT_HEALTH_SEARCH_TERM,
+    selectedCountry: DEFAULT_HEALTH_SELECTED_COUNTRY,
+    settings: {
+      wellfoundMaxJobsPerTerm: "1",
+    },
+  },
   manual: {
     searchTerm: DEFAULT_HEALTH_SEARCH_TERM,
     selectedCountry: DEFAULT_HEALTH_SELECTED_COUNTRY,

@@ -264,6 +264,7 @@ export const DEMO_SOURCE_BASE_URLS: Record<JobSource, string> = {
   naukri: "https://www.naukri.com",
   fiveamsat: "https://khamsat.com",
   wazzuf: "https://wuzzuf.net",
+  wellfound: "https://wellfound.com",
   manual: "https://example.com",
 };
 
